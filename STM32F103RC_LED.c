@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    stm32vldiscovery.c
+  * @file    stm32f103rc_led.c
   * @author  MCD Application Team
   * @version V1.0.0
   * @date    09/13/2010
-  * @brief   STM32VLDISCOVERY abstraction layer. 
+  * @brief   STM32F103RC abstraction layer. 
   *          This file should be added to the main application to use the provided
   *          functions that manage the Leds LD3 and LD4 and the USER push-button.
   ******************************************************************************
@@ -21,9 +21,9 @@
   */ 
   
 /* Includes ------------------------------------------------------------------*/
-#include "STM32vldiscovery.h"
+#include "stm32f103rc_led.h"
 
-/** @defgroup STM32vldiscovery_Private_TypesDefinitions
+/** @defgroup STM32F103RC_Private_TypesDefinitions
   * @{
   */ 
 /**
@@ -31,7 +31,7 @@
   */ 
 
 
-/** @defgroup STM32vldiscovery_Private_Defines
+/** @defgroup STM32F103RC_Private_Defines
   * @{
   */ 
 /**
@@ -39,7 +39,7 @@
   */ 
 
 
-/** @defgroup STM32vldiscovery_Private_Macros
+/** @defgroup STM32F103RC_Private_Macros
   * @{
   */ 
 /**
@@ -47,14 +47,14 @@
   */ 
 
 
-/** @defgroup STM32vldiscovery_Private_Variables
+/** @defgroup STM32F103RC_Private_Variables
   * @{
   */ 
-GPIO_TypeDef* GPIO_PORT[LEDn] = {LED3_GPIO_PORT, LED4_GPIO_PORT};
+GPIO_TypeDef* GPIO_PORT[LEDn] = {LED_FAULT_GPIO_PORT, LED_NORMAL_GPIO_PORT};
 
-const uint16_t GPIO_PIN[LEDn] = {LED3_PIN, LED4_PIN};
+const uint16_t GPIO_PIN[LEDn] = {LED_FAULT_PIN, LED_NORMAL_PIN};
 
-const uint32_t GPIO_CLK[LEDn] = {LED3_GPIO_CLK, LED4_GPIO_CLK};
+const uint32_t GPIO_CLK[LEDn] = {LED_FAULT_GPIO_CLK, LED_NORMAL_GPIO_CLK};
 
 const uint16_t BUTTON_PIN_SOURCE[BUTTONn] = {USER_BUTTON_EXTI_PIN_SOURCE};
 
@@ -70,7 +70,7 @@ const uint16_t BUTTON_EXTI_LINE[BUTTONn] = {USER_BUTTON_EXTI_LINE};
 
 const uint16_t BUTTON_IRQn[BUTTONn] = {USER_BUTTON_EXTI_IRQn};					 
 
-/** @defgroup STM32vldiscovery_Private_FunctionPrototypes
+/** @defgroup STM32F103RC_Private_FunctionPrototypes
   * @{
   */ 
 /**
@@ -78,7 +78,7 @@ const uint16_t BUTTON_IRQn[BUTTONn] = {USER_BUTTON_EXTI_IRQn};
   */ 
 
 
-/** @defgroup STM32vldiscovery_Private_Functions
+/** @defgroup STM32F103RC_Private_Functions
   * @{
   */ 
 
@@ -86,11 +86,11 @@ const uint16_t BUTTON_IRQn[BUTTONn] = {USER_BUTTON_EXTI_IRQn};
   * @brief  Configures LED GPIO.
   * @param  Led: Specifies the Led to be configured. 
   *   This parameter can be one of following parameters:
-  *     @arg LED3
-  *     @arg LED4
+  *     @arg LED_FAULT
+  *     @arg LED_NORMAL
   * @retval None
   */
-void STM32vldiscovery_LEDInit(Led_TypeDef Led)
+void STM32F103RC_LEDInit(Led_TypeDef Led)
 {
   GPIO_InitTypeDef  GPIO_InitStructure;
   
@@ -109,11 +109,11 @@ void STM32vldiscovery_LEDInit(Led_TypeDef Led)
   * @brief  Turns selected LED On.
   * @param  Led: Specifies the Led to be set on. 
   *   This parameter can be one of following parameters:
-  *     @arg LED3
-  *     @arg LED4  
+  *     @arg LED_FAULT
+  *     @arg LED_NORMAL  
   * @retval None
   */
-void STM32vldiscovery_LEDOn(Led_TypeDef Led)
+void STM32F103RC_LEDOn(Led_TypeDef Led)
 {
   GPIO_PORT[Led]->BSRR = GPIO_PIN[Led];   
 }
@@ -122,11 +122,11 @@ void STM32vldiscovery_LEDOn(Led_TypeDef Led)
   * @brief  Turns selected LED Off.
   * @param  Led: Specifies the Led to be set off. 
   *   This parameter can be one of following parameters:
-  *     @arg LED3
-  *     @arg LED4 
+  *     @arg LED_FAULT
+  *     @arg LED_NORMAL 
   * @retval None
   */
-void STM32vldiscovery_LEDOff(Led_TypeDef Led)
+void STM32F103RC_LEDOff(Led_TypeDef Led)
 {
   GPIO_PORT[Led]->BRR = GPIO_PIN[Led];   
 }
@@ -135,11 +135,11 @@ void STM32vldiscovery_LEDOff(Led_TypeDef Led)
   * @brief  Toggles the selected LED.
   * @param  Led: Specifies the Led to be toggled. 
   *   This parameter can be one of following parameters:
-  *     @arg LED3
-  *     @arg LED4  
+  *     @arg LED_FAULT
+  *     @arg LED_NORMAL  
   * @retval None
   */
-void STM32vldiscovery_LEDToggle(Led_TypeDef Led)
+void STM32F103RC_LEDToggle(Led_TypeDef Led)
 {
   GPIO_PORT[Led]->ODR ^= GPIO_PIN[Led];
 }
@@ -156,7 +156,7 @@ void STM32vldiscovery_LEDToggle(Led_TypeDef Led)
   *                     generation capability  
   * @retval None
   */
-void STM32vldiscovery_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
+void STM32F103RC_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
 {
   GPIO_InitTypeDef GPIO_InitStructure;
   EXTI_InitTypeDef EXTI_InitStructure;
@@ -201,7 +201,7 @@ void STM32vldiscovery_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mo
   *     @arg BUTTON_USER: USER Push Button 
   * @retval The Button GPIO pin value.
   */
-uint32_t STM32vldiscovery_PBGetState(Button_TypeDef Button)
+uint32_t STM32F103RC_PBGetState(Button_TypeDef Button)
 {
   return GPIO_ReadInputDataBit(BUTTON_PORT[Button], BUTTON_PIN[Button]);
 }

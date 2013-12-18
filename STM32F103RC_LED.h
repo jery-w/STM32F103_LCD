@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    STM32vldiscovery.h
-  * @author  MCD Application Team
+  * @file    STM32F103RC_led.h
+  * @author  jery Wang
   * @version V1.0.0
-  * @date    09/13/2010
-  * @brief   Header file for STM32vldiscovery.c module.
+  * @date    12/18/2013
+  * @brief   Header file for STM32F103RC_led.c module.
   ******************************************************************************
   * @copy
   *
@@ -15,12 +15,12 @@
   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
   *
-  * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2013 Jery Wang </center></h2>
   */ 
   
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32F100_Dicovery_H
-#define __STM32F100_Dicovery_H
+#ifndef __STM32F103RC_LED_H
+#define __STM32F103RC_LED_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -33,25 +33,25 @@
   * @{
   */ 
   
-/** @addtogroup STM32vldiscovery
+/** @addtogroup STM32F103RC
   * @{
   */ 
 
-/** @defgroup STM32vldiscovery_Abstraction_Layer
+/** @defgroup STM32F103RC_Abstraction_Layer
   * @{
   */  
 
-/** @defgroup STM32vldiscovery_HARDWARE_RESOURCES
+/** @defgroup STM32F103RC_HARDWARE_RESOURCES
   * @{
   */
   
-/** @defgroup STM32vldiscovery_Exported_Types
+/** @defgroup STM32F103RC_Exported_Types
   * @{
   */
 typedef enum 
 {
-  LED3 = 0,
-  LED4 = 1
+  LED_FAULT = 0,
+  LED_NORMAL = 1
 } Led_TypeDef;
 
 typedef enum 
@@ -75,26 +75,26 @@ typedef enum
 #define Button_Mode_TypeDef  ButtonMode_TypeDef
 
 
-/** @addtogroup STM32vldiscovery_LOW_LEVEL_LED
+/** @addtogroup STM32F103RC_LOW_LEVEL_LED
   * @{
   */
-#define LEDn                             2
-#define LED3_PIN                         GPIO_Pin_9  
-#define LED3_GPIO_PORT                   GPIOC
-#define LED3_GPIO_CLK                    RCC_APB2Periph_GPIOC  
+#define LEDn                              2
+#define LED_FAULT_PIN                     GPIO_Pin_11  
+#define LED_FAULT_GPIO_PORT               GPIOA
+#define LED_FAULT_GPIO_CLK                RCC_APB2Periph_GPIOA 
 
-#define LED4_PIN                         GPIO_Pin_8  
-#define LED4_GPIO_PORT                   GPIOC
-#define LED4_GPIO_CLK                    RCC_APB2Periph_GPIOC  
+#define LED_NORMAL_PIN                    GPIO_Pin_12  
+#define LED_NORMAL_GPIO_PORT              GPIOA
+#define LED_NORMAL_GPIO_CLK               RCC_APB2Periph_GPIOA  
 
 /**
   * @}
   */ 
   
-/** @addtogroup STM32vldiscovery_LOW_LEVEL_BUTTON
+/** @addtogroup STM32F103RC_LOW_LEVEL_BUTTON
   * @{
   */  
-#define BUTTONn                          1
+#define BUTTONn                           1
 
 /* * @brief USER push-button
  */
@@ -110,15 +110,15 @@ typedef enum
   * @}
   */ 
 
-/** @defgroup STM32vldiscovery_LOW_LEVEL__Exported_Functions
+/** @defgroup STM32F103RC_LOW_LEVEL__Exported_Functions
   * @{
-  */ 
-void STM32vldiscovery_LEDInit(Led_TypeDef Led);
-void STM32vldiscovery_LEDOn(Led_TypeDef Led);
-void STM32vldiscovery_LEDOff(Led_TypeDef Led);
-void STM32vldiscovery_LEDToggle(Led_TypeDef Led);
-void STM32vldiscovery_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode);
-uint32_t STM32vldiscovery_PBGetState(Button_TypeDef Button);
+  */  
+void STM32F103RC_LEDInit(Led_TypeDef Led);
+void STM32F103RC_LEDOn(Led_TypeDef Led);
+void STM32F103RC_LEDOff(Led_TypeDef Led);
+void STM32F103RC_LEDToggle(Led_TypeDef Led);
+void STM32F103RC_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode);
+uint32_t STM32F103RC_PBGetState(Button_TypeDef Button);
 
 /**
   * @}
@@ -129,7 +129,7 @@ uint32_t STM32vldiscovery_PBGetState(Button_TypeDef Button);
 #endif
 
 
-#endif /* __STM32vldiscovery_H */
+#endif /* __STM32F103RC_LED_H */
 
 /**
   * @}
@@ -143,4 +143,4 @@ uint32_t STM32vldiscovery_PBGetState(Button_TypeDef Button);
   * @}
   */
   
-/******************* (C) COPYRIGHT 2010 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2013 STMicroelectronics *****END OF FILE****/
