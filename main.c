@@ -71,20 +71,20 @@ int main(void)
                          RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD |
                          RCC_APB2Periph_GPIOE, DISABLE);  
 
-  /* Initialize Leds LD3 and LD4 mounted on STM32VLDISCOVERY board */
-  STM32vldiscovery_LEDInit(LED3);
-  STM32vldiscovery_LEDInit(LED4);
+  /* Initialize Leds LD3 and LD4 mounted on STM32F103RC board */
+  STM32F103RC_LEDInit(LED_FAULT);
+  STM32F103RC_LEDInit(LED_NORMAL);
 
   while (1)
   {
     /* Turn on LD2 and LD3 */
-    STM32vldiscovery_LEDOn(LED3);
-    STM32vldiscovery_LEDOn(LED4);    
+    STM32F103RC_LEDOn(LED_FAULT);
+    STM32F103RC_LEDOn(LED_NORMAL);    
    /* Insert delay */
     Delay(0xAFFFF);
     /* Turn off LD3 and LD4 */
-    STM32vldiscovery_LEDOff(LED3);
-    STM32vldiscovery_LEDOff(LED4);
+    STM32F103RC_LEDOff(LED_FAULT);
+    STM32F103RC_LEDOff(LED_NORMAL);
     /* Insert delay */
     Delay(0xAFFFF);
 

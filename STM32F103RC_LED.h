@@ -94,17 +94,21 @@ typedef enum
 /** @addtogroup STM32F103RC_LOW_LEVEL_BUTTON
   * @{
   */  
-#define BUTTONn                           1
+#define BUTTONn                           4
 
 /* * @brief USER push-button
  */
-#define USER_BUTTON_PIN                   GPIO_Pin_0
-#define USER_BUTTON_GPIO_PORT             GPIOA
-#define USER_BUTTON_GPIO_CLK              RCC_APB2Periph_GPIOA
-#define USER_BUTTON_EXTI_PORT_SOURCE      GPIO_PortSourceGPIOA
-#define USER_BUTTON_EXTI_PIN_SOURCE       GPIO_PinSource0
-#define USER_BUTTON_EXTI_LINE             EXTI_Line0
-#define USER_BUTTON_EXTI_IRQn             EXTI0_IRQn
+#define BUTTON_DOWN                       GPIO_Pin_4
+#define BUTTON_UP                         GPIO_Pin_5
+#define BUTTON_ENTER                      GPIO_Pin_6
+#define BUTTON_ESC                        GPIO_Pin_7
+
+#define BUTTON_GPIO_PORT                  GPIOA
+#define BUTTON_GPIO_CLK                   RCC_APB2Periph_GPIOA
+#define BUTTON_EXTI_PORT_SOURCE           GPIO_PortSourceGPIOA
+#define BUTTON_EXTI_PIN_SOURCE            GPIO_PinSource0
+#define BUTTON_EXTI_LINE                  EXTI_Line0
+#define BUTTON_EXTI_IRQn                  EXTI0_IRQn
 
 /**
   * @}
